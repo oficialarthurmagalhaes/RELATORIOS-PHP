@@ -51,7 +51,7 @@ CREATE TABLE `clientes` (
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `empresas` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `cnpj` (`cnpj`),
   UNIQUE KEY `razao` (`razao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,8 +97,24 @@ CREATE TABLE `funcionarios` (
   UNIQUE KEY `cpf` (`cpf`),
   KEY `empresa_id` (`empresa_id`),
   CONSTRAINT `empresa_id` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `view_funcionarios_empresas`
+--
+
+DROP TABLE IF EXISTS `view_funcionarios_empresas`;
+/*!50001 DROP VIEW IF EXISTS `view_funcionarios_empresas`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `view_funcionarios_empresas` AS SELECT 
+ 1 AS `Nome`,
+ 1 AS `CPF`,
+ 1 AS `Cargo`,
+ 1 AS `ID_Empresa`,
+ 1 AS `Empresa`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping routines for database 'teste_relatorios'
@@ -122,6 +138,62 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `inserir_empresa` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inserir_empresa`(in p_cnpj varchar(14), in p_razao varchar(100), in p_fantasia varchar(60), in p_municipio varchar(100), in p_uf char(2), in p_email varchar(100), in p_telefone varchar(11))
+BEGIN
+INSERT into empresas(cnpj, razao, fantasia, municipio, uf, email, telefone) values(p_cnpj, p_razao, p_fantasia, p_municipio, p_uf, p_email, p_telefone);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `inserir_funcionario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inserir_funcionario`(in p_nome varchar(100), in p_cpf varchar(14), in p_data_nascimento date, in p_telefone varchar(20), in p_email varchar(100), in p_cargo varchar(50), in p_salario decimal(10,2), in p_empresa_id int)
+BEGIN
+INSERT into funcionarios(nome, cpf, data_nascimento, telefone, email, cargo, salario, empresa_id) values(p_nome, p_cpf, p_data_nascimento, p_telefone, p_email, p_cargo, p_salario, p_empresa_id);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `view_funcionarios_empresas`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_funcionarios_empresas`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `view_funcionarios_empresas` AS select `funcionarios`.`nome` AS `Nome`,`funcionarios`.`cpf` AS `CPF`,`funcionarios`.`cargo` AS `Cargo`,`empresas`.`id` AS `ID_Empresa`,`empresas`.`razao` AS `Empresa` from (`funcionarios` join `empresas` on(`funcionarios`.`empresa_id` = `empresas`.`id`)) order by `empresas`.`razao` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -132,4 +204,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-02  1:57:32
+-- Dump completed on 2025-11-02  4:17:11
