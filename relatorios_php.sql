@@ -36,15 +36,6 @@ CREATE TABLE `cliente_empresa` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cliente_empresa`
---
-
-LOCK TABLES `cliente_empresa` WRITE;
-/*!40000 ALTER TABLE `cliente_empresa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cliente_empresa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `clientes`
 --
 
@@ -53,24 +44,15 @@ DROP TABLE IF EXISTS `clientes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cpf` varchar(14) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `data_nascimento` date DEFAULT NULL,
-  `cpf` varchar(14) NOT NULL,
   `telefone` varchar(20) NOT NULL,
-  `email` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clientes`
---
-
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `empresas`
@@ -95,15 +77,6 @@ CREATE TABLE `empresas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `empresas`
---
-
-LOCK TABLES `empresas` WRITE;
-/*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `funcionarios`
 --
 
@@ -112,9 +85,9 @@ DROP TABLE IF EXISTS `funcionarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `funcionarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cpf` varchar(14) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `data_nascimento` date DEFAULT NULL,
-  `cpf` varchar(14) NOT NULL,
   `telefone` varchar(20) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `cargo` varchar(50) DEFAULT 'Analista',
@@ -122,20 +95,33 @@ CREATE TABLE `funcionarios` (
   `empresa_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf` (`cpf`),
-  UNIQUE KEY `email` (`email`),
   KEY `empresa_id` (`empresa_id`),
   CONSTRAINT `empresa_id` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `funcionarios`
+-- Dumping routines for database 'teste_relatorios'
 --
-
-LOCK TABLES `funcionarios` WRITE;
-/*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
-UNLOCK TABLES;
+/*!50003 DROP PROCEDURE IF EXISTS `inserir_cliente` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inserir_cliente`(in p_nome varchar(100), in p_cpf varchar(14), in p_data_nascimento date, in p_telefone varchar(20), in p_email varchar(100))
+BEGIN
+INSERT into clientes(nome, cpf, data_nascimento, telefone, email) values(p_nome, p_cpf, p_data_nascimento, p_telefone, p_email);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -146,4 +132,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-01 23:47:30
+-- Dump completed on 2025-11-02  1:57:32
