@@ -5,3 +5,46 @@
   padding: 0;
   box-sizing: border-box; 
 }
+body {
+    font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column; /* Empilha os filhos verticalmente */
+  min-height: 100vh; /* Garante que o corpo ocupe a altura total da tela */
+}
+
+header {
+  /* O header não cresce, tem altura fixa */
+  height: 80px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  background-color: #F0F0F0;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+main {
+  /* O main cresce para ocupar o espaço que sobrar */
+  flex-grow: 1; 
+}
+.navegacao-principal {
+  padding: 1rem;
+  margin-right: 2rem;
+}
+.navegacao-principal-linhas {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem; /* Espaçamento entre os itens */
+}
+.navegacao-principal-linhas li a {
+  text-decoration: none;
+  color: #000;
+}
+.botao-sair {
+  margin-right: 2rem;
+}
+.botao-sair img {
+  width: 32px;
+  height: 32px;
+}
