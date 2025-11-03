@@ -19,36 +19,43 @@
             </ul>
         </nav>
         
-        <a href="/logout" class="botao-sair"><img src="images/logout_icone.png" alt=""></a>
+        <a href="/logout" class="botao-sair"><img src="images/logout_icone.png" alt="Botão de Logout"></a>
     </header>
 
     <main>
-        <div class="barra-ferramentas">
-            <form class="busca">
-                <input type="search" placeholder="Buscar empresa...">
-                <button type="submit" aria-label="Buscar"></button>
-            </form>
-            
-            <a href="/empresas/nova" class="botao-nova"><span>Nova</span></a>
-        </div>
+        <div class="container-principal">
+            <div class="barra-ferramentas">
+                <form class="busca">
+                    <input type="search" class="busca-texto" placeholder="Buscar empresa...">
+                    <button type="submit" class="botao-pesquisar">
+                        <img src="images/procurar_icone_preto.png" alt="">
+                    </button>
+                </form>
 
-        <div class="container-tabela">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>CNPJ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ECONEGE</td>
-                        <td>14200412000170</td>
-                    </tr>
-                </tbody>
-            </table>
+                <a href="/empresas/nova" class="botao-nova">
+                    <img src="images/empresa_icone.png" alt="">
+                    <span>Nova</span>
+                </a>
+            </div>
+
+            <div class="container-tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CNPJ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>ECONEGE</td>
+                            <td>14200412000170</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>
