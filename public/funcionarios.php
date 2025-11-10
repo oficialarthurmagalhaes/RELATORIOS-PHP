@@ -17,21 +17,9 @@
     <header>
         <nav class="navegacao-principal">
             <ul class="navegacao-principal-linhas">
-                <li>
-                    <a href="index.php" class="<?php echo ($paginaAtual == 'index.php') ? 'ativo' : ''; ?>">
-                        Empresas
-                    </a>
-                </li>
-                <li>
-                    <a href="clientes.php" class="<?php echo ($paginaAtual == 'clientes.php') ? 'ativo' : ''; ?>">
-                        Clientes
-                    </a>
-                </li>
-                <li>
-                    <a href="funcionarios.php" class="<?php echo ($paginaAtual == 'funcionarios.php') ? 'ativo' : ''; ?>">
-                        Funcionários
-                    </a>
-                </li>
+                <li><a href="index.php">Empresas</a></li>
+                <li><a href="clientes.php">Clientes</a></li>
+                <li><a href="funcionarios.php" class="ativo">Funcionários</a></li>
             </ul>
         </nav>
         
