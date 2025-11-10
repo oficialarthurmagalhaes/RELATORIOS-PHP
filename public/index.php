@@ -55,7 +55,7 @@
             </div>
 
             <div class="container-tabela">
-                <table>
+                <table class="tabela-registros">
                     <thead>
                         <tr>
                             <th>ID</th>

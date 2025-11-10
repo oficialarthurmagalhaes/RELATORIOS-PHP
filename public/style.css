@@ -108,3 +108,16 @@ main {
     text-decoration: none;
     padding: 5px 12px;
 }
+.container-tabela {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.tabela-registros {
+    width: 100%;
+}
+.tabela-registros th, .tabela-registros td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #E0E0E0;
+}
