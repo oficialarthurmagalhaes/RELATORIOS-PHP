@@ -1,4 +1,8 @@
 <?php
+    require_once('conexao.php');
+    $sql = 'SELECT * FROM empresas';
+    $resultado = $conexao->query($sql);
+    
     // Pega o nome do arquivo da página atual (ex: "index.php", "clientes.php")
     $paginaAtual = basename($_SERVER['PHP_SELF']);
 ?>
@@ -59,16 +63,34 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nome</th>
                             <th>CNPJ</th>
-                        </tr>
+                            <th>Razão</th>
+                            <th>Fantasia</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Municipio</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>ECONEGE</td>
-                            <td>14200412000170</td>
-                        </tr>
+                    <?php
+                    if($resultado->num_rows > 0){
+                        while($row = $resultado->fetch_assoc()){
+                            echo "<tr>";
+                                echo "<td>".htmlspecialchars($row["id"])."</td>";
+                                echo "<td>".htmlspecialchars($row["cnpj"])."</td>";
+                                echo "<td>".htmlspecialchars($row["razao"])."</td>";
+                                echo "<td>".htmlspecialchars($row["fantasia"])."</td>";
+                                echo "<td>".htmlspecialchars($row["email"])."</td>";
+                                echo "<td>".htmlspecialchars($row["telefone"])."</td>";
+                                echo "<td>".htmlspecialchars($row["municipio"])." - ".htmlspecialchars($row["uf"])."</td>";
+                            echo "<tr>";
+                        }
+                    } else{
+                        echo "<tr>
+                                <td colspan='3'>Nenhum usuário encontrado</td>
+                             </tr>";
+                    }
+                    $conexao->close();
+                    ?>
                     </tbody>
                 </table>
             </div>

@@ -1,4 +1,8 @@
 <?php
+    require_once('conexao.php');
+    $sql = "SELECT * FROM view_cliente_empresa";
+    $resultado = $conexao->query($sql);
+    
     // Pega o nome do arquivo da página atual (ex: "index.php", "clientes.php")
     $paginaAtual = basename($_SERVER['PHP_SELF']);
 ?>
@@ -46,17 +50,30 @@
                 <table class="tabela-registros">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Nome</th>
-                            <th>CNPJ</th>
+                            <th>CPF</th>
+                            <th>Cliente desde</th>
+                            <th>Empresa</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>ECONEGE</td>
-                            <td>14200412000170</td>
-                        </tr>
+                    <?php
+                    if($resultado->num_rows > 0){
+                        while($row = $resultado->fetch_assoc()){
+                            echo "<tr>";
+                                echo "<td>".htmlspecialchars($row["Cliente"])."</td>";
+                                echo "<td>".htmlspecialchars($row["CPF"])."</td>";
+                                echo "<td>".htmlspecialchars($row["inicio_relacao"])."</td>";
+                                echo "<td>".htmlspecialchars($row["Empresa"])."</td>";
+                            echo "<tr>";
+                        }
+                    } else{
+                        echo "<tr>
+                                <td colspan='3'>Nenhum usuário encontrado</td>
+                             </tr>";
+                    }
+                    $conexao->close();
+                    ?>
                     </tbody>
                 </table>
             </div>
