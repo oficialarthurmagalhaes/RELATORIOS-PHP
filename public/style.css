@@ -112,6 +112,7 @@ main {
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-top: 10px;
 }
 .tabela-registros {
     width: 100%;
